@@ -24,7 +24,7 @@ Persisted inference pipeline for downstream consumption
 Interactive Streamlit UI for risk exploration
 
 ## Architecture Overview 
-
+```
 ┌────────────┐
 │ Raw Data   │
 └─────┬──────┘
@@ -59,11 +59,11 @@ Interactive Streamlit UI for risk exploration
 │ Inference &  │
 │ Dashboard    │
 └──────────────┘
-
+```
 
 
 ## Project Structure
-
+```
  diabetes-risk-prediction/
 ├── data/                    # Versioned dataset
 ├── src/
@@ -76,7 +76,7 @@ Interactive Streamlit UI for risk exploration
 ├── train.py                 # Orchestration entrypoint
 ├── requirements.txt
 └── README.md
-
+```
 
 ## Dataset
 
