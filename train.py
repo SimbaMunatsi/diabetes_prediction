@@ -2,6 +2,11 @@ import os
 import joblib
 import pandas as pd
 
+import matplotlib
+matplotlib.use("Agg")  # MUST be before pyplot import
+import matplotlib.pyplot as plt
+
+
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
 from sklearn.pipeline import Pipeline
 
@@ -15,7 +20,8 @@ from src.evaluation import evaluate_classifier, plot_confusion_matrix
 # Configuration
 # =========================
 DATA_PATH = "data/diabetes.csv"
-MODEL_PATH = "model.joblib"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "model.joblib")
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
 N_SPLITS = 5
@@ -103,7 +109,12 @@ plot_confusion_matrix(metrics["confusion_matrix"])
 # =========================
 # Persist trained pipeline
 # =========================
+
+print("Reached model saving stage...")
 print("\nSaving trained model pipeline...")
 joblib.dump(pipeline, MODEL_PATH)
 
-print(f"Model saved to: {MODEL_PATH}")
+if not os.path.exists(MODEL_PATH):
+    raise RuntimeError("Model file was not created!")
+
+print("Model saved successfully.")
