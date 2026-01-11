@@ -2,12 +2,16 @@ import os
 import joblib
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 # Resolve project root
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "model.joblib")
 
-# Load trained pipeline
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Model not found at {MODEL_PATH}")
+
+# Load trained pipeline / model
 model = joblib.load(MODEL_PATH)
 
 st.title("Diabetes Risk Prediction Dashboard")
@@ -25,8 +29,20 @@ inputs = {
     "Age": st.sidebar.slider("Age", 18, 90, 45),
 }
 
+# Convert inputs to DataFrame
 input_df = pd.DataFrame([inputs])
 
-prob = model.predict_proba(input_df)[0][1]
+# ---- SAFE PREDICTION (FIX IS HERE) ----
+raw_pred = model.predict(input_df)
+
+# Always convert prediction safely to a scalar
+prob = float(np.ravel(raw_pred)[0])
+# -------------------------------------
 
 st.metric("Predicted Diabetes Risk", f"{prob:.2%}")
+
+# Optional interpretation
+if prob >= 0.5:
+    st.error("High diabetes risk")
+else:
+    st.success("Low diabetes risk")
