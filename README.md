@@ -150,7 +150,7 @@ Demonstrates model usability beyond offline evaluation.
     Persisted pipeline (model.joblib)  
 
 ## Launch Dashboard
-    streamlit run dashboard/app.py
+    streamlit run app.py
 
 ## Design Trade-offs & Limitations
 
