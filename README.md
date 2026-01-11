@@ -72,7 +72,7 @@ Interactive Streamlit UI for risk exploration
 │   ├── model.py             # TF model + SciKeras wrapper
 │   ├── evaluation.py        # Metrics & diagnostics
 │   └── explainability.py    # SHAP analysis
-├── dashboard/               # Decision-support UI
+├── app.py                   # Decision-support UI
 ├── train.py                 # Orchestration entrypoint
 ├── requirements.txt
 └── README.md
